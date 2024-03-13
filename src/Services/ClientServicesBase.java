@@ -347,6 +347,7 @@ public class ClientServicesBase {
             } catch (SQLException e) {
                 System.out.println(String.format("Exception by SQL=%s", strSql));
                 e.printStackTrace();
+                return false;
             }
         }
         System.out.println(String.format("Error to Connect db for SQL %s", strSql));
@@ -441,6 +442,7 @@ public class ClientServicesBase {
                 System.out.println(String.format("Exception by Procedure=%s", strProcedure));
                 e.printStackTrace();
                 outValue.setErrorCode(-99);
+                return false;
             }
         }
         System.out.println(String.format("Error to Connect db for Procedure %s", strProcedure));
