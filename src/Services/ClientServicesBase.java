@@ -536,7 +536,7 @@ public class ClientServicesBase {
 
     public <T> List<T> GetCommListbyProc(String strProcedure, String strClassName, Result outValue) {
         if(m_strTokenId.isEmpty()){
-            outValue.setIntValue(-100);
+            outValue.setIntValue(-2);
             return null;
         }
         else
@@ -545,7 +545,7 @@ public class ClientServicesBase {
 
     public <T> List<T> GetCommListbyProc(String strProcedure, String strClassName, Integer nId, Result outValue) {
         if(m_strTokenId.isEmpty()){
-            outValue.setIntValue(-100);
+            outValue.setIntValue(-2);
             return null;
         }
         else
@@ -554,7 +554,7 @@ public class ClientServicesBase {
 
     public <T> List<T> GetCommListbyProc(String strProcedure, String strClassName, SqlParameter[] params, Result outValue) {
         if(m_strTokenId.isEmpty()){
-            outValue.setIntValue(-100);
+            outValue.setIntValue(-2);
             return null;
         }
         else
@@ -563,7 +563,7 @@ public class ClientServicesBase {
 
     public <T> List<T> GetCommListbyProc(String strTokenId, String strProcedure, String strClassName, Result outValue) {
         if(m_strTokenId.isEmpty()){
-            outValue.setIntValue(-100);
+            outValue.setIntValue(-2);
             return null;
         }
         else
@@ -572,7 +572,7 @@ public class ClientServicesBase {
 
     public <T> List<T> GetCommListbyProc(String strTokenId, String strProcedure, String strClassName, Integer nId, Result outValue) {
         if(m_strTokenId.isEmpty()){
-            outValue.setIntValue(-100);
+            outValue.setIntValue(-2);
             return null;
         }
         else
