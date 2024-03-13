@@ -45,6 +45,30 @@ public class ClientServicesBase {
     private final BigDecimal defaultDecimal = new BigDecimal(0);
     private final Timestamp defaultTimestamp=new Timestamp(new Date(0).getTime());
 
+    public enum enumDBType{
+        enumSQLServer(0) ,
+        enumOracle(1) ,
+        enumMySql(2) ;
+
+        private int nValue = 0;
+
+        enumDBType(int i) {
+            this.nValue = i;
+        }
+
+        public int getInt() {
+            return nValue;
+        }
+
+        public static enumDBType FromInt(int nInt) {
+            for (enumDBType type : values()) {
+                if (type.getInt() == nInt)
+                    return type;
+            }
+            return enumDBType.enumSQLServer;
+        }
+    }
+
     //用于记录集与结果List之间的字段映射
     private static class MapItem {
         //记录集索引
@@ -158,6 +182,8 @@ public class ClientServicesBase {
         }
     }
 
+    protected String m_strDriverName;
+    protected String m_strConnectionFormat;
     protected Connection m_conn;
     protected String m_strConnection;
     protected String m_strUser;
@@ -170,11 +196,14 @@ public class ClientServicesBase {
 
     //strConnectionString = "jdbc:sqlserver://<server>:<port>;databaseName=<database>;integratedSecurity=false;";
     public  ClientServicesBase(String strTokenId){
-        DBConfig dbxml = new DBConfig();
+        m_strDriverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+        m_strConnectionFormat = "jdbc:sqlserver://%s:1433;databaseName=%s;integratedSecurity=false;sslProtocol=TLSv1;";
 
-        m_strConnection = String.format("jdbc:sqlserver://%s:1433;databaseName=%s;integratedSecurity=false;sslProtocol=TLSv1;" ,
+        DBConfig dbxml = new DBConfig();
+        m_strConnection = String.format(m_strConnectionFormat ,
                 dbxml.getDbServer(),
                 dbxml.getDbName());
+
         m_strUser = dbxml.getDbUser();
         m_strPassword = dbxml.getDbPwd();
         m_strTokenId = strTokenId;
@@ -184,6 +213,9 @@ public class ClientServicesBase {
     }
 
     public ClientServicesBase(String strConnection, String strUser, String strPassword) {
+        m_strDriverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+        m_strConnectionFormat = "jdbc:sqlserver://%s:1433;databaseName=%s;integratedSecurity=false;sslProtocol=TLSv1;";
+
         m_strConnection = strConnection;
         m_strUser = strUser;
         m_strPassword = strPassword;
@@ -194,6 +226,9 @@ public class ClientServicesBase {
     }
 
     public ClientServicesBase(String strTokenId, String strConnection, String strUser, String strPassword) {
+        m_strDriverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+        m_strConnectionFormat = "jdbc:sqlserver://%s:1433;databaseName=%s;integratedSecurity=false;sslProtocol=TLSv1;";
+
         m_strConnection = strConnection;
         m_strUser = strUser;
         m_strPassword = strPassword;
@@ -201,6 +236,28 @@ public class ClientServicesBase {
         m_strEncodingTokenId = "";
         m_strIP = "127.0.0.1";
         m_nPort = 0;
+    }
+
+    public void SelectDBType(enumDBType enumType){
+        switch (enumType){
+            case enumOracle:
+                m_strDriverName = "oracle.jdbc.driver.OracleDriver";
+                m_strConnectionFormat = "jdbc:oracle:thin:@%s:1521:%s";
+                break;
+            case enumMySql:
+                m_strDriverName = "com.mysql.cj.jdbc.Driver";
+                m_strConnectionFormat = "jdbc:mysql://%s:3306/%s";
+                break;
+            default:
+                m_strDriverName = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
+                m_strConnectionFormat = "jdbc:sqlserver://%s:1433;databaseName=%s;integratedSecurity=false;sslProtocol=TLSv1;";
+                break;
+        }
+
+        DBConfig dbxml = new DBConfig();
+        m_strConnection = String.format(m_strConnectionFormat ,
+                dbxml.getDbServer(),
+                dbxml.getDbName());
     }
 
     public void setIPPort(String strIP, Integer nPort){
@@ -224,7 +281,7 @@ public class ClientServicesBase {
     public Boolean CheckDB(Result outValue) {
         try {
             //检测对应的驱动lib是否在输出lib里，手动导入的sqljdbc42无法自动进入输出lib里
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName(m_strDriverName);
             m_conn = DriverManager.getConnection(m_strConnection, m_strUser, m_strPassword);
             if (!m_conn.isClosed()) {
                 m_conn.close();
@@ -243,7 +300,7 @@ public class ClientServicesBase {
     protected Boolean ConnectDB() {
         try {
             //检测对应的驱动lib是否在输出lib里，手动导入的sqljdbc42无法自动进入输出lib里
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Class.forName(m_strDriverName);
             m_conn = DriverManager.getConnection(m_strConnection, m_strUser, m_strPassword);
             return true;
         } catch (SQLException e) {
