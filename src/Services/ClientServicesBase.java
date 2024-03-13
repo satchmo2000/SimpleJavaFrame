@@ -562,21 +562,11 @@ public class ClientServicesBase {
     }
 
     public <T> List<T> GetCommListbyProc(String strTokenId, String strProcedure, String strClassName, Result outValue) {
-        if(m_strTokenId.isEmpty()){
-            outValue.setIntValue(-2);
-            return null;
-        }
-        else
-            return GetCommListbyProc(strTokenId, strProcedure, strClassName , new SqlParameter[]{}, outValue);
+        return GetCommListbyProc(strTokenId, strProcedure, strClassName , new SqlParameter[]{}, outValue);
     }
 
     public <T> List<T> GetCommListbyProc(String strTokenId, String strProcedure, String strClassName, Integer nId, Result outValue) {
-        if(m_strTokenId.isEmpty()){
-            outValue.setIntValue(-2);
-            return null;
-        }
-        else
-            return GetCommListbyProc(strTokenId, strProcedure, strClassName , new SqlParameter[]{new SqlParameter("ID", nId)}, outValue);
+        return GetCommListbyProc(strTokenId, strProcedure, strClassName , new SqlParameter[]{new SqlParameter("ID", nId)}, outValue);
     }
 
     public <T> List<T> GetCommListbyProc(String strTokenId, String strProcedure, String strClassName, SqlParameter[] params, Result outValue) {
@@ -682,15 +672,27 @@ public class ClientServicesBase {
     //<editor-folder desc="DefaultData Model">
 
     public int GetCommListbyProc(String strProcedure, DefaultData data) {
-        return GetCommListbyProc(m_strTokenId, strProcedure, new SqlParameter[]{}, data);
+        if(m_strTokenId.isEmpty()){
+            return -2;
+        }
+        else
+            return GetCommListbyProc(m_strTokenId, strProcedure, new SqlParameter[]{}, data);
     }
 
     public int GetCommListbyProc(String strProcedure, Integer nId, DefaultData data) {
-        return GetCommListbyProc(m_strTokenId, strProcedure, new SqlParameter[]{new SqlParameter("ID", nId)}, data);
+        if(m_strTokenId.isEmpty()){
+            return -2;
+        }
+        else
+            return GetCommListbyProc(m_strTokenId, strProcedure, new SqlParameter[]{new SqlParameter("ID", nId)}, data);
     }
 
     public int GetCommListbyProc(String strProcedure, SqlParameter[] params, DefaultData data) {
-        return GetCommListbyProc(m_strTokenId, strProcedure, params, data);
+        if(m_strTokenId.isEmpty()){
+            return -2;
+        }
+        else
+            return GetCommListbyProc(m_strTokenId, strProcedure, params, data);
     }
 
     public int GetCommListbyProc(String strTokenId, String strProcedure, DefaultData data) {
@@ -817,15 +819,27 @@ public class ClientServicesBase {
     }
 
     public Integer ExecCommandbyProc(String strProcedure) {
-        return ExecCommandbyProc(m_strTokenId, strProcedure, new SqlParameter[]{});
+        if(m_strTokenId.isEmpty()){
+            return -2;
+        }
+        else
+            return ExecCommandbyProc(m_strTokenId, strProcedure, new SqlParameter[]{});
     }
 
     public Integer ExecCommandbyProc(String strProcedure, Integer nId){
-        return ExecCommandbyProc(m_strTokenId , strProcedure, nId);
+        if(m_strTokenId.isEmpty()){
+            return -2;
+        }
+        else
+            return ExecCommandbyProc(m_strTokenId , strProcedure, nId);
     }
 
     public Integer ExecCommandbyProc(String strProcedure, SqlParameter[] params) {
-        return ExecCommandbyProc(m_strTokenId, strProcedure, params);
+        if(m_strTokenId.isEmpty()){
+            return -2;
+        }
+        else
+            return ExecCommandbyProc(m_strTokenId, strProcedure, params);
     }
 
     public Integer ExecCommandbyProc(String strTokenId, String strProcedure) {
