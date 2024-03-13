@@ -740,17 +740,17 @@ public class ClientServicesX extends ClientServicesBase{
     }
 
     public enumErrorCode ExecCommandbyProcXNoTokenId(String strProcedure, Integer nId) {
-        Integer nRet = ExecCommandbyProc("EmptyTokenId", strProcedure, nId);
+        Integer nRet = ExecCommandbyProc("", strProcedure, nId);
         return enumErrorCode.FromInt(nRet);
     }
 
     public enumErrorCode ExecCommandbyProcXNoTokenId(String strProcedure) {
-        Integer nRet = ExecCommandbyProc("EmptyTokenId", strProcedure);
+        Integer nRet = ExecCommandbyProc("", strProcedure);
         return enumErrorCode.FromInt(nRet);
     }
 
     public enumErrorCode ExecCommandbyProcXNoTokenId(String strProcedure, SqlParameter[] params) {
-        Integer nRet = ExecCommandbyProc("EmptyTokenId", strProcedure, params);
+        Integer nRet = ExecCommandbyProc("", strProcedure, params);
         return enumErrorCode.FromInt(nRet);
     }
 
