@@ -309,7 +309,7 @@ public class ClientServicesX extends ClientServicesBase{
         SqlParameter paramTokenId = new SqlParameter("TOKENID", Types.VARCHAR, true);
         SqlParameter paramRet = new SqlParameter("RET", Types.INTEGER, true);
 
-        enumErrorCode enumRet = ExecCommandbyProcX("HR_USER_REGISTER", new SqlParameter[]{
+        enumErrorCode enumRet = ExecCommandbyProcXNoTokenId("HR_USER_REGISTER", new SqlParameter[]{
                 new SqlParameter("REALNAME" , strRealName) ,
                 new SqlParameter("USERNAME" , strUserName) ,
                 new SqlParameter("PASSWORD", strPassword),
@@ -334,7 +334,7 @@ public class ClientServicesX extends ClientServicesBase{
         SqlParameter paramRealName = new SqlParameter("REALNAME", Types.VARCHAR, true);
         SqlParameter paramRet = new SqlParameter("RET", Types.INTEGER, true);
 
-        enumErrorCode enumRet = ExecCommandbyProcX("SYS_LOGIN", new SqlParameter[]{
+        enumErrorCode enumRet = ExecCommandbyProcXNoTokenId("SYS_LOGIN", new SqlParameter[]{
                 new SqlParameter("USERNAME" , strUserName) ,
                 new SqlParameter("PASSWORD", strPassword),
                 new SqlParameter("IP", m_strIP),
@@ -357,7 +357,7 @@ public class ClientServicesX extends ClientServicesBase{
         SqlParameter paramTokenId = new SqlParameter("TOKENID", Types.VARCHAR, true);
         SqlParameter paramRet = new SqlParameter("RET", Types.INTEGER, true);
 
-        enumErrorCode enumRet = ExecCommandbyProcX("SYS_LOGINFIND", new SqlParameter[]{
+        enumErrorCode enumRet = ExecCommandbyProcXNoTokenId("SYS_LOGINFIND", new SqlParameter[]{
                 new SqlParameter("USERNAME" , strUserName) ,
                 new SqlParameter("CHKCODE", strCheckCode),
                 new SqlParameter("IP", m_strIP),
@@ -376,7 +376,7 @@ public class ClientServicesX extends ClientServicesBase{
         SqlParameter paramRealName = new SqlParameter("REALNAME", Types.VARCHAR, true);
         SqlParameter paramRet = new SqlParameter("RET", Types.INTEGER, true);
 
-        enumErrorCode enumRet = ExecCommandbyProcX("SYS_WEIXINLOGIN", new SqlParameter[]{
+        enumErrorCode enumRet = ExecCommandbyProcXNoTokenId("SYS_WEIXINLOGIN", new SqlParameter[]{
                 new SqlParameter("OPENID" , strOpenId) ,
                 new SqlParameter("IP", m_strIP),
                 new SqlParameter("PORT", m_nPort),
