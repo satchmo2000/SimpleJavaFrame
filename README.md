@@ -8,6 +8,8 @@
 
    使用方法可以参考ClientServicesM，其中实体可以通过GetProcDefine直接生成
 
+   也可以直接使用ClientServicesBase，这个类没有使用个性化的应用习惯，可以根据自己的习惯进行扩展应用
+
 2、Services.BaseView是对页面控制器Controller进行了封装，通过对RequestMapping进行jsp文件的定位
 
    使用方法可以参考MainController
