@@ -805,15 +805,15 @@ public class ClientServicesBase {
     //执行存储过程（无返回记录集），返回RET值，其他输出变量存于params中
     //存储过程的基本格式：Create ProcedureName（@TOKENID VARCHAR(36),...@RET INT OUTPUT)
     public Integer ExecCommandbyProcNoTokenId(String strProcedure) {
-        return ExecCommandbyProc("EmptyTokenId", strProcedure, new SqlParameter[]{});
+        return ExecCommandbyProc("", strProcedure, new SqlParameter[]{});
     }
 
     public Integer ExecCommandbyProcNoTokenId(String strProcedure, Integer nId){
-        return ExecCommandbyProc("EmptyTokenId" , strProcedure, nId);
+        return ExecCommandbyProc("" , strProcedure, nId);
     }
 
     public Integer ExecCommandbyProcNoTokenId(String strProcedure, SqlParameter[] params) {
-        return ExecCommandbyProc("EmptyTokenId", strProcedure, params);
+        return ExecCommandbyProc("", strProcedure, params);
     }
 
     public Integer ExecCommandbyProc(String strProcedure) {
