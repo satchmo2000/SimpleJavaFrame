@@ -611,8 +611,8 @@ public class ClientServicesX extends ClientServicesBase{
     public enumErrorCode GetSystemParameter(enumSystemParameter enumId, Result outValue){
         SqlParameter param = new SqlParameter("VALUE", Types.VARCHAR, true);
         enumErrorCode enumRet = enumErrorCode.enumSuccess;
-        if(m_strTokenId.length() == 0) {
-            enumRet = ExecCommandbyProcXNoTokenId("SYS_PARAMETER_GET", new SqlParameter[]{
+        if(m_strTokenId.isEmpty()) {
+            enumRet = ExecCommandbyProcX("EmptyTokenId", "SYS_PARAMETER_GET", new SqlParameter[]{
                     new SqlParameter("ID", enumId.getInt()),
                     param
             });
