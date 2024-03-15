@@ -46,18 +46,19 @@
  
  CREATE PROCEDURE ASS_SERVERLOAD_GETRANGE(
  
-	@TOKENID	VARCHAR(36) = NULL,
+	@TOKENID	VARCHAR(36) = NULL,--用户登录TOKEN，登录时临时生成，用于获取用户的权限信息
  
 	@STARTDATE	DATETIME = NULL ,
  
 	@STOPDATE	DATETIME = NULL ,
  
-	@RET		INT OUTPUT)
+	@RET		INT OUTPUT)--返回执行的错误码
  
 AS
 
 BEGIN
-
+	--第一步：根据TOKENID获取用户信息
+ 
 	SET @RET = 0
  
 	DECLARE @USERID INT
@@ -73,7 +74,13 @@ BEGIN
 		RETURN
   
 	END
+ 
+--第二步：根据用户信息判断当前权限及执行有效性
 
+--按需判断及操作，可以为空
+
+--第三步：数据获取或事务操作（按需增加BEGIN TRANSACTION;等以提高系统执行的完整性）
+    
     --获取记录集（支持仅分页部份内容）
     
 	SELECT     CONVERT(VARCHAR(13), CREATEDATE, 21) + ':00:00+00:00' AS CREATEDATE, IP, MAX(CPU) AS CPU, MAX(MEMORY) AS MEMORY, MAX([DISK]) AS DISK
@@ -86,12 +93,15 @@ BEGIN
  
 	ORDER BY IP, CONVERT(VARCHAR(13), CREATEDATE, 21)
 
-    --获取记录订数量
+    --获取记录订数量（不分页时，该操作可以没有，系统默认获取记录集的条数）
+    
 	SELECT     COUNT(*)
  
 	FROM         ASS_SERVERLOAD
  
 	WHERE     (CREATEDATE BETWEEN @STARTDATE AND @STOPDATE) AND (DELETED = 0)
+
+--4、写入操作日志
 
 	DECLARE @MESSAGE VARCHAR(512)
  
