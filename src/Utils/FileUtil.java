@@ -45,9 +45,14 @@ public class FileUtil {
         return servletContext.getRealPath(strUrl);
     }
 
+    //strUrl必须以"/"开始
     public static String UrlPath(HttpServletRequest request, String strUrl) {
         String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort();
 
-        return String.format("%s%s%s", basePath, request.getContextPath(), strUrl);
+        String strContextPath = request.getContextPath();
+        if(strContextPath != null)
+            return String.format("%s%s%s", basePath, request.getContextPath(), strUrl);
+        else
+            return String.format("%s%s", basePath, strUrl);
     }
 }
