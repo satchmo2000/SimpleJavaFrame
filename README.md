@@ -57,6 +57,7 @@
 AS
 
 BEGIN
+
 	--第一步：根据TOKENID获取用户信息
  
 	SET @RET = 0
