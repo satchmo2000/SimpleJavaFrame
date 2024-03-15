@@ -4,6 +4,8 @@
 
 优势：把业务封装在存储过程里，页面开发时仅需关心页面的逻辑控制，而单一存储将完成权限认证、功能执行许可、功能执行、日志操作及最后的错误码的返回
 
+框架使用实例：https://github.com/satchmo2000/SimpleMavenWeb
+
 1、Services.ClientServicesX是对数据库的增、改、删、查等操作进行封装
 
    使用方法可以参考ClientServicesM，其中实体可以通过GetProcDefine直接生成
