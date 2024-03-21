@@ -13,7 +13,7 @@ public class WebLogging {
             strFile = strLogFile;
             Path path = Paths.get(strLogFile);
             boolean bExist = Files.exists(path);
-            write = new FileWriter(strLogFile);
+            write = new FileWriter(strLogFile, bExist);
         }catch (IOException e) {
             e.printStackTrace();
         }
@@ -24,7 +24,7 @@ public class WebLogging {
             try {
                 DateTime dtNow = new DateTime();
 
-                String strWriteLine = String.format("%s %s\n", dtNow.toDateString("yyyy-MM-dd hh:mm:ss"), strLine);
+                String strWriteLine = String.format("%s %s\r\n", dtNow.toDateString("yyyy-MM-dd hh:mm:ss"), strLine);
                 write.write(strWriteLine);
             }catch(IOException e){
                 e.printStackTrace();
@@ -37,7 +37,7 @@ public class WebLogging {
             try {
                 DateTime dtNow = new DateTime();
 
-                String strWriteLine = String.format("[%s]%s %s\n", strMethod, dtNow.toDateString("yyyy-MM-dd hh:mm:ss"), strLine);
+                String strWriteLine = String.format("[%s]%s %s\r\n", strMethod, dtNow.toDateString("yyyy-MM-dd hh:mm:ss"), strLine);
                 write.write(strWriteLine);
             }catch(IOException e){
                 e.printStackTrace();
